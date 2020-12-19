@@ -1,5 +1,6 @@
 import express from 'express';
 import { apiFetchDetails, MovieDetails } from '../apiCalls/apiFetchDetails';
+import { createMovie } from '../db/dbApi';
 export const movieRouter = express.Router();
 
 const getMovies = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -15,7 +16,7 @@ const fetchMovieDetails = async (req: express.Request, res: express.Response, ne
         try {
             const details : MovieDetails = await apiFetchDetails(title);
             req.body.details = details;
-            res.send(details);
+            //res.send(details);
             next()
         } catch (error) {
             next(error)
@@ -23,7 +24,12 @@ const fetchMovieDetails = async (req: express.Request, res: express.Response, ne
     }
 }
 
-movieRouter.post('/', fetchMovieDetails);
+const addMovieToDb = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    await createMovie(req.body.details, 'foo')
+    res.send(req.body.details)
+}
+
+movieRouter.post('/', fetchMovieDetails, addMovieToDb);
 
 movieRouter.get('/', getMovies)
 //exports.movieRouter = movieRouter;

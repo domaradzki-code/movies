@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.movieRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const apiFetchDetails_1 = require("../apiCalls/apiFetchDetails");
+const dbApi_1 = require("../db/dbApi");
 exports.movieRouter = express_1.default.Router();
 const getMovies = async (req, res, next) => {
     res.send('Here I am');
@@ -19,7 +20,7 @@ const fetchMovieDetails = async (req, res, next) => {
         try {
             const details = await apiFetchDetails_1.apiFetchDetails(title);
             req.body.details = details;
-            res.send(details);
+            //res.send(details);
             next();
         }
         catch (error) {
@@ -27,6 +28,10 @@ const fetchMovieDetails = async (req, res, next) => {
         }
     }
 };
-exports.movieRouter.post('/', fetchMovieDetails);
+const addMovieToDb = async (req, res, next) => {
+    await dbApi_1.createMovie(req.body.details, 'foo');
+    res.send(req.body.details);
+};
+exports.movieRouter.post('/', fetchMovieDetails, addMovieToDb);
 exports.movieRouter.get('/', getMovies);
 //exports.movieRouter = movieRouter;
