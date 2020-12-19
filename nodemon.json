@@ -1,0 +1,6 @@
+{   
+    "ignore": ["src/**/*.js"],
+    "watch": ["src/**/*.ts"],
+    "exec": "tsc && npm start",
+    "ext": "ts"
+}

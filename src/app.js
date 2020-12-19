@@ -9,6 +9,11 @@ const movieRouter_1 = require("./routers/movieRouter");
 const app = express_1.default();
 app.use(body_parser_1.default.json());
 app.use('/movies', movieRouter_1.movieRouter);
-app.listen(80, () => {
-    console.log('Server listening');
+app.use((err, req, res, next) => {
+    console.log('An error');
+    res.status(400).send({ error: err.message });
+});
+const port = process.env.PORT || 80;
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
 });
