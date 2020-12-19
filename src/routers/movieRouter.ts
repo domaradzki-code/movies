@@ -25,7 +25,7 @@ const fetchMovieDetails = async (req: express.Request, res: express.Response, ne
 }
 
 const addMovieToDb = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    await createMovie(req.body.details, 'foo')
+    await createMovie(req.body.details, req.body.decoded.name)
     res.send(req.body.details)
 }
 

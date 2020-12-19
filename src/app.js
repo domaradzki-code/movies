@@ -6,8 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const movieRouter_1 = require("./routers/movieRouter");
+const verifyAuth_1 = require("./routers/verifyAuth");
 const app = express_1.default();
 app.use(body_parser_1.default.json());
+app.use(verifyAuth_1.verifyAuth);
 app.use('/movies', movieRouter_1.movieRouter);
 app.use((err, req, res, next) => {
     console.log('An error');

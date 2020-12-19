@@ -29,7 +29,7 @@ const fetchMovieDetails = async (req, res, next) => {
     }
 };
 const addMovieToDb = async (req, res, next) => {
-    await dbApi_1.createMovie(req.body.details, 'foo');
+    await dbApi_1.createMovie(req.body.details, req.body.decoded.name);
     res.send(req.body.details);
 };
 exports.movieRouter.post('/', fetchMovieDetails, addMovieToDb);

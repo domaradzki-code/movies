@@ -1,11 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import {movieRouter} from './routers/movieRouter'
+import { verifyAuth } from './routers/verifyAuth';
 
 const app = express();
 
 app.use(bodyParser.json());
-
+app.use(verifyAuth)
 app.use('/movies', movieRouter)
 app.use((err: Error, req: express.Request, res:express.Response, next: express.NextFunction) => {
     console.log('An error'); 
