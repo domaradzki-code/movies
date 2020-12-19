@@ -12,7 +12,7 @@ app.use(body_parser_1.default.json());
 app.use(verifyAuth_1.verifyAuth);
 app.use('/movies', movieRouter_1.movieRouter);
 app.use((err, req, res, next) => {
-    console.log('An error');
+    console.log(err.stack);
     res.status(400).send({ error: err.message });
 });
 const port = process.env.PORT || 80;

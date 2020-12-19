@@ -11,6 +11,26 @@ exports.movieRouter = express_1.default.Router();
 const getMovies = async (req, res, next) => {
     res.send('Here I am');
 };
+const verifyAccountLimits = async (req, res, next) => {
+    const decoded = req.body.decoded;
+    if (decoded.role == 'premium') {
+        next();
+    }
+    else {
+        try {
+            const registeredThisMonth = await dbApi_1.countMoviesMonthly(decoded.name);
+            if (registeredThisMonth < 5) {
+                next();
+            }
+            else {
+                res.status(400).send({ error: "Limit of 5 movies mothly reached" });
+            }
+        }
+        catch (err) {
+            next(err);
+        }
+    }
+};
 const fetchMovieDetails = async (req, res, next) => {
     const { title } = req.body;
     if (!title) {
@@ -29,9 +49,16 @@ const fetchMovieDetails = async (req, res, next) => {
     }
 };
 const addMovieToDb = async (req, res, next) => {
-    await dbApi_1.createMovie(req.body.details, req.body.decoded.name);
-    res.send(req.body.details);
+    const details = req.body.details;
+    const decoded = req.body.decoded;
+    try {
+        await dbApi_1.createMovie(details, decoded.name);
+    }
+    catch (err) {
+        next(err);
+    }
+    res.send(details);
 };
-exports.movieRouter.post('/', fetchMovieDetails, addMovieToDb);
+exports.movieRouter.post('/', verifyAccountLimits, fetchMovieDetails, addMovieToDb);
 exports.movieRouter.get('/', getMovies);
 //exports.movieRouter = movieRouter;

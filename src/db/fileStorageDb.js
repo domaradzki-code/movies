@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMovies = exports.createMovie = void 0;
+exports.countMoviesMonthly = exports.getMovies = exports.createMovie = void 0;
 const fs_1 = __importDefault(require("fs"));
 const util_1 = __importDefault(require("util"));
 const lodash_1 = __importDefault(require("lodash"));
@@ -20,7 +20,8 @@ const createMovie = async (movie, user) => {
         Title: movie.Title,
         Genre: movie.Genre,
         Director: movie.Director,
-        Released: movie.Released
+        Released: movie.Released,
+        Timestamp: new Date().toString()
     });
     await writeFile(path, JSON.stringify(data));
 };
@@ -31,3 +32,13 @@ const getMovies = async (user) => {
     return result;
 };
 exports.getMovies = getMovies;
+const countMoviesMonthly = async (user) => {
+    const now = new Date();
+    const usersMovies = await exports.getMovies(user);
+    const result = lodash_1.default.filter(usersMovies, (movie) => {
+        const timestamp = new Date(movie.Timestamp);
+        return (timestamp.getMonth() == now.getMonth()) && (timestamp.getFullYear() == now.getFullYear());
+    }).length;
+    return result;
+};
+exports.countMoviesMonthly = countMoviesMonthly;

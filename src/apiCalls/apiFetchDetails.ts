@@ -1,11 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-
-export interface MovieDetails {
-    Title: string
-    Released: number
-    Genre: string
-    Director: string
-}
+import { MovieDetails } from '../interfaces';
 
 export const apiFetchDetails = async (title : string) => {
     const config : AxiosRequestConfig = {

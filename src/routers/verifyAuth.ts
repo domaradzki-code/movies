@@ -1,5 +1,6 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
+import { decodedToken } from '../interfaces'
 
 export const verifyAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const auth = req.headers.authorization?.substring(7)   
