@@ -1,12 +1,14 @@
 import express from 'express';
 import { apiFetchDetails } from '../apiCalls/apiFetchDetails';
 import { decodedToken, MovieDetails } from "../interfaces";
-import { countMoviesMonthly, createMovie } from '../db/dbApi';
+import { countMoviesMonthly, createMovie, getMovies } from '../db/dbApi';
 import { decode } from 'punycode';
 export const movieRouter = express.Router();
 
-const getMovies = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.send('Here I am')
+const getMoviesFromDb = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const decoded: decodedToken = req.body.decoded
+    const moviesList = await getMovies(decoded.name)
+    res.send(moviesList)
 }
 
 const verifyAccountLimits =  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -21,7 +23,7 @@ const verifyAccountLimits =  async (req: express.Request, res: express.Response,
                 next()
             }
             else {
-                res.status(400).send({error: "Limit of 5 movies mothly reached"})
+                res.status(400).send({error: "Limit of 5 movies monthly reached"})
             }
         }
         catch (err) {
@@ -61,5 +63,5 @@ const addMovieToDb = async (req: express.Request, res: express.Response, next: e
 
 movieRouter.post('/', verifyAccountLimits, fetchMovieDetails, addMovieToDb);
 
-movieRouter.get('/', getMovies)
+movieRouter.get('/', getMoviesFromDb)
 //exports.movieRouter = movieRouter;
