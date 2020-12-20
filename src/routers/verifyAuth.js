@@ -5,16 +5,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyAuth = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+/**
+ * This middleware verifies JWT bearer token and adds it to the req.body if exists.
+ */
 const verifyAuth = (req, res, next) => {
-    var _a;
-    const auth = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.substring(7);
+    const auth = req.headers.authorization;
+    const bearer = auth === null || auth === void 0 ? void 0 : auth.substring(7);
     if (!auth) {
         res.status(400).send({ error: "No auth provided" });
     }
     else {
         const secret = process.env.JWT_SECRET || 'secret';
+        const bearer = auth === null || auth === void 0 ? void 0 : auth.substring(7);
         try {
-            const decoded = jsonwebtoken_1.default.verify(auth, secret);
+            const decoded = jsonwebtoken_1.default.verify(bearer, secret);
             req.body.decoded = decoded;
             next();
         }

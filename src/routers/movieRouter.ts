@@ -5,12 +5,18 @@ import { countMoviesMonthly, createMovie, getMovies } from '../db/dbApi';
 import { decode } from 'punycode';
 export const movieRouter = express.Router();
 
+/**
+ * This function calls db connection and fetches all the movies for the current user. 
+ */
 const getMoviesFromDb = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const decoded: decodedToken = req.body.decoded
     const moviesList = await getMovies(decoded.name)
     res.send(moviesList)
 }
 
+/**
+ * This function allows basic user to create no more than 5 entries per month. Premium users have no limits. 
+ */
 const verifyAccountLimits =  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const decoded: decodedToken = req.body.decoded  
     if (decoded.role == 'premium') {
@@ -32,6 +38,9 @@ const verifyAccountLimits =  async (req: express.Request, res: express.Response,
     }
 }
 
+/**
+ * This middleware performs a call to omdb API and adds received details to req.body.
+ */
 const fetchMovieDetails = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { title } : { title: string } = req.body
     if (!title) {
@@ -49,6 +58,9 @@ const fetchMovieDetails = async (req: express.Request, res: express.Response, ne
     }
 }
 
+/**
+ * This middleware adds new movie to the db and sends a response.
+ */
 const addMovieToDb = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const details: MovieDetails = req.body.details
     const decoded: decodedToken = req.body.decoded
@@ -64,4 +76,3 @@ const addMovieToDb = async (req: express.Request, res: express.Response, next: e
 movieRouter.post('/', verifyAccountLimits, fetchMovieDetails, addMovieToDb);
 
 movieRouter.get('/', getMoviesFromDb)
-//exports.movieRouter = movieRouter;
