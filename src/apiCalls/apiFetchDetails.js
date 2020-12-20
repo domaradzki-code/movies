@@ -11,7 +11,7 @@ const apiFetchDetails = async (title) => {
         url: `http://www.omdbapi.com/?apikey=${process.env.OMDB_APIKEY}&t=${title}`
     };
     try {
-        const { data } = await axios_1.default(config);
+        const { data } = await axios_1.default.request(config);
         if (data.Error) {
             throw new Error(data.Error);
         }

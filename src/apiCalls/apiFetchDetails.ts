@@ -7,7 +7,7 @@ export const apiFetchDetails = async (title : string) => {
         url: `http://www.omdbapi.com/?apikey=${process.env.OMDB_APIKEY}&t=${title}`
     }
     try {
-        const {data} = await axios(config);
+        const {data} = await axios.request(config);        
         if (data.Error) {
             throw new Error(data.Error)
         }

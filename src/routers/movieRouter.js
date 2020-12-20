@@ -59,7 +59,7 @@ const addMovieToDb = async (req, res, next) => {
     catch (err) {
         next(err);
     }
-    res.send(details);
+    res.status(201).send(details);
 };
 exports.movieRouter.post('/', verifyAccountLimits, fetchMovieDetails, addMovieToDb);
 exports.movieRouter.get('/', getMoviesFromDb);

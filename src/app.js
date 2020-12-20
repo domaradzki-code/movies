@@ -15,7 +15,7 @@ app.use((err, req, res, next) => {
     console.log(err.stack);
     res.status(400).send({ error: err.message });
 });
-const port = process.env.PORT || 80;
+const port = 80;
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
