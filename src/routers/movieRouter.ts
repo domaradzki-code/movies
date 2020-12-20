@@ -2,7 +2,6 @@ import express from 'express';
 import { apiFetchDetails } from '../apiCalls/apiFetchDetails';
 import { decodedToken, MovieDetails } from "../interfaces";
 import { countMoviesMonthly, createMovie, getMovies } from '../db/dbApi';
-import { decode } from 'punycode';
 export const movieRouter = express.Router();
 
 /**

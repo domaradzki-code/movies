@@ -15,6 +15,10 @@ app.use((err: Error, req: express.Request, res:express.Response, next: express.N
 
 const port = 80;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })
+
+export function handler () {
+    server.close()
+}
