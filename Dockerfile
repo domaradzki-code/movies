@@ -8,5 +8,5 @@ VOLUME db
 
 COPY package.json package-lock.json ./
 RUN npm i
-COPY . .
+COPY ./src ./src
 

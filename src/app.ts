@@ -13,7 +13,7 @@ app.use((err: Error, req: express.Request, res:express.Response, next: express.N
     res.status(400).send({error: err.message});
 })
 
-const port = process.env.PORT || 80;
+const port = 80;
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

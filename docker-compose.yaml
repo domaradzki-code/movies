@@ -8,3 +8,9 @@ services:
     - .env
     volumes:
     - /mnt/movies_db:/app/db
+  auth:
+    build: ./auth
+    ports:
+    - 3000:3000
+    env_file:
+    - .env
