@@ -4,8 +4,10 @@ import { MovieDetails } from "../interfaces"
 import _ from 'lodash'
 import { dbObject } from '../interfaces'
 
-const path = 'db.json'
+const dir = 'db'
+const path = dir + '/db.json'
 if (!fs.existsSync(path)) {
+    fs.mkdirSync(dir, {recursive: true})
     fs.writeFileSync(path, JSON.stringify([]), 'UTF-8')
 }
 

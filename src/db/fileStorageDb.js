@@ -7,8 +7,10 @@ exports.countMoviesMonthly = exports.getMovies = exports.createMovie = void 0;
 const fs_1 = __importDefault(require("fs"));
 const util_1 = __importDefault(require("util"));
 const lodash_1 = __importDefault(require("lodash"));
-const path = 'db.json';
+const dir = 'db';
+const path = dir + '/db.json';
 if (!fs_1.default.existsSync(path)) {
+    fs_1.default.mkdirSync(dir, { recursive: true });
     fs_1.default.writeFileSync(path, JSON.stringify([]), 'UTF-8');
 }
 const readFile = util_1.default.promisify(fs_1.default.readFile);
