@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 import { decodedToken } from '../../src/interfaces'
 import axios from 'axios'
 import * as omdbResponse from '../test_assets/omdbResponse.json';
-import {app} from '../../src/app'
+import {app, handler} from '../../src/app'
 
 describe('Post request route', () => {
     test('all is correct', async() => {
@@ -31,5 +31,6 @@ describe('Post request route', () => {
             })
         expect(res.status).toEqual(201)
         expect(res.body.Title).toEqual('Shrek')
+        handler()
     })
 })
