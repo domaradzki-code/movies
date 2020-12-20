@@ -1,7 +1,7 @@
 import {apiFetchDetails} from '../../src/apiCalls/apiFetchDetails'
 import {describe, it, jest, expect} from '@jest/globals'
 import axios from 'axios'
-import * as omdbResponse from './omdbResponse.json';
+import * as omdbResponse from '../test_assets/omdbResponse.json';
 
 jest.mock('axios')
 //const mockedAxios = axios as jest.Mocked<typeof axios>;

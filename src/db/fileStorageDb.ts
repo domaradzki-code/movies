@@ -42,3 +42,7 @@ export const countMoviesMonthly = async (user: string) => {
     }).length
     return result
 }
+
+export const clearDb = async () => {
+    await writeFile(path, '[]');
+}

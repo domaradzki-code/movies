@@ -1,1 +1,1 @@
-export { createMovie, getMovies, countMoviesMonthly } from './fileStorageDb';
+export { createMovie, getMovies, countMoviesMonthly, clearDb } from './fileStorageDb';

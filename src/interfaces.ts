@@ -22,6 +22,6 @@ export interface decodedToken {
     role: 'basic' | 'premium'
     iat: number
     exp: number
-    iss: Url
+    iss: string
     sub: string
 }

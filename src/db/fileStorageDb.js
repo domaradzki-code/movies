@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.countMoviesMonthly = exports.getMovies = exports.createMovie = void 0;
+exports.clearDb = exports.countMoviesMonthly = exports.getMovies = exports.createMovie = void 0;
 const fs_1 = __importDefault(require("fs"));
 const util_1 = __importDefault(require("util"));
 const lodash_1 = __importDefault(require("lodash"));
@@ -44,3 +44,7 @@ const countMoviesMonthly = async (user) => {
     return result;
 };
 exports.countMoviesMonthly = countMoviesMonthly;
+const clearDb = async () => {
+    await writeFile(path, '[]');
+};
+exports.clearDb = clearDb;

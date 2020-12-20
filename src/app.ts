@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import {movieRouter} from './routers/movieRouter'
 import { verifyAuth } from './routers/verifyAuth';
 
-const app = express();
+export const app = express();
 
 app.use(bodyParser.json());
 app.use(verifyAuth)
