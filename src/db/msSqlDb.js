@@ -66,7 +66,3 @@ const countMoviesMonthlyMssql = async (user) => {
     return result.recordset[0].Count;
 };
 exports.countMoviesMonthlyMssql = countMoviesMonthlyMssql;
-// createMovieMssql({Title: 'a', Released: 1, Genre: 'b', Director: 'c'}, 'usernae').then(() => {
-// //getMoviesMssql('usernae').then(res => {console.log(res)})
-// countMoviesMonthlyMssql('usernae')
-// })
