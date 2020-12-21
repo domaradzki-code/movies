@@ -14,7 +14,7 @@ if (!fs.existsSync(path)) {
 const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
 
-export const createMovie = async (movie: MovieDetails, user: string) => {
+export const createMovieFs = async (movie: MovieDetails, user: string) => {
     const data: Array<dbObject> = JSON.parse((await readFile(path)).toString())
     data.push({
         User: user, 
@@ -27,15 +27,15 @@ export const createMovie = async (movie: MovieDetails, user: string) => {
     await writeFile(path, JSON.stringify(data))
 }
 
-export const getMovies = async (user: string) => {
+export const getMoviesFs = async (user: string) => {
     const data: Array<dbObject> = JSON.parse((await readFile(path)).toString())
     const result = _.filter(data, (elem) => {return elem.User == user})
     return result
 }
 
-export const countMoviesMonthly = async (user: string) => {
+export const countMoviesMonthlyFs = async (user: string) => {
     const now = new Date()
-    const usersMovies = await getMovies(user)
+    const usersMovies = await getMoviesFs(user)
     const result = _.filter(usersMovies, (movie) => {
         const timestamp = new Date(movie.Timestamp)
         return (timestamp.getMonth() == now.getMonth()) && (timestamp.getFullYear() == now.getFullYear())
@@ -43,6 +43,6 @@ export const countMoviesMonthly = async (user: string) => {
     return result
 }
 
-export const clearDb = async () => {
+export const clearDbFs = async () => {
     await writeFile(path, '[]');
 }
