@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.clearDb = exports.countMoviesMonthly = exports.getMovies = exports.createMovie = void 0;
 /**
  * This module is an API to abstract DB implementation from its interface. Currently it's using
- * filesystem as database, but should be switched for some real one.
+ * either filesystem or MSSQL as a database, maybe adding MongoDB would be ok at some point in the future.
  */
 const fileStorageDb_1 = require("./fileStorageDb");
 const msSqlDb_1 = require("./msSqlDb");
