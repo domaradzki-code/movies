@@ -1,6 +1,6 @@
 /**
  * This module is an API to abstract DB implementation from its interface. Currently it's using 
- * filesystem as database, but should be switched for some real one.
+ * either filesystem or MSSQL as a database, maybe adding MongoDB would be ok at some point in the future.
  */
 import { createMovieFs, getMoviesFs, countMoviesMonthlyFs, clearDbFs } from './fileStorageDb';
 import {createMovieMssql, getMoviesMssql, countMoviesMonthlyMssql} from './msSqlDb'
